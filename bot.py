@@ -118,7 +118,7 @@ def handle_start(message):
     add_user(message.chat.id)  # Asegura que el usuario quede registrado
 
     markup = InlineKeyboardMarkup()
-    button = InlineKeyboardButton("💻 *SOPORTE - OFICIAL* 💻", url=f"tg://user?id={ADMIN_ID}")
+    button = InlineKeyboardButton("💻 *CONTACTAME* 💻", url=f"tg://user?id={ADMIN_ID}")
     markup.add(button)
 
     bot.send_message(
@@ -146,11 +146,11 @@ def handle_ping(message):
         bot.reply_to(
             message,
             (
-                "❌ *FORMATOINVÁLIDO!* 🚫\n\n"
+                "❌ *FORMATO INVÁLIDO!* 🚫\n\n"
                 "📌 *FIJATE:*\n"
-                "`/garena <TIPO> <IP/HOST:PUERTO> <HILOS> <MS>`\n\n"
+                "`/ping <TIPO> <IP/HOST:PUERTO> <HILOS> <MS>`\n\n"
                 "💡 *EJEMPLO PONES CAMBIA IP:*\n"
-                "`/garena UDP 143.92.125.230:10013 1 480`"
+                "`/ping UDP 143.92.125.230:10013 1 480`"
             ),
             parse_mode="Markdown",
         )
@@ -179,7 +179,7 @@ def handle_ping(message):
         cooldowns[f"last_command_{telegram_id}"] = message.text  # Guardar el último comando
 
         markup = InlineKeyboardMarkup()
-        markup.add(InlineKeyboardButton("☢️ *PARAR ATAQUE* ☢️", callback_data=f"stop_{telegram_id}"))
+        markup.add(InlineKeyboardButton("☢️ *PARAR ATAQUE ☢️", callback_data=f"stop_{telegram_id}"))
 
         bot.reply_to(
             message,
@@ -216,14 +216,14 @@ def handle_stop_attack(call):
         del active_attacks[telegram_id]
 
         try:
-            bot.answer_callback_query(call.id, "✅ *ATAQUEDETENIDOCONÉXITO.*")
+            bot.answer_callback_query(call.id, "✅ *ATAQUE DETENIDO CON ÉXITO.*")
             
             # Crear botón para realizar el ataque nuevamente
             markup = InlineKeyboardMarkup()
             markup.add(InlineKeyboardButton("🔄 Realizar ataque nuevamente", callback_data=f"restart_attack_{telegram_id}"))
 
             bot.edit_message_text(
-                "*[☢️] *ATAQUE PARADO* [☢️]*\n\n"
+                "*[☢️] ATAQUE PARADO [☢️]*\n\n"
                 "¿Quieres realizar el ataque nuevamente? Tienes **20 segundos** para decidir.",
                 chat_id=call.message.chat.id,
                 message_id=call.message.id,
@@ -303,10 +303,10 @@ def handle_restart_attack(call):
             cooldowns[telegram_id] = time.time()  # Actualizar el cooldown
 
             markup = InlineKeyboardMarkup()
-            markup.add(InlineKeyboardButton("☢️ *PARAR ATAQUE* ☢️", callback_data=f"stop_{telegram_id}"))
+            markup.add(InlineKeyboardButton("☢️ PARAR ATAQUE ☢️", callback_data=f"stop_{telegram_id}"))
 
             bot.edit_message_text(
-                "*🔥 ¡ATAQUEREINICIADO! 🔥*\n\n"
+                "*🔥 ¡ATAQUERE INICIADO! 🔥*\n\n"
                 f"🌐 *SERVIDOR:* {ip_port}\n"
                 f"⚙️ *TIPO:* {attack_type}\n"
                 f"🧵 *HILOS:* {threads}\n"
@@ -417,7 +417,7 @@ def handle_help(message):
             "Este bot está diseñado para ayudarte a ejecutar ataques de prueba con fines educativos en Free Fire.\n\n"
             "*Comandos disponibles:*\n"
             "1. `/start`: Inicia el bot y te da una breve introducción.\n"
-            "2. `/garena <TIPO> <IP/HOST:PUERTO> <HILOS> <MS>`: Inicia un ataque de ping.\n"
+            "2. `/ping <TIPO> <IP/HOST:PUERTO> <HILOS> <MS>`: Inicia un ataque de ping.\n"
             "3. `/addgroup <ID del grupo>`: Agrega un grupo a la lista de grupos permitidos (solo admin).\n"
             "4. `/removegroup <ID del grupo>`: Elimina un grupo de la lista de grupos permitidos (solo admin).\n"
             "5. `/help`: Muestra esta ayuda.\n"
