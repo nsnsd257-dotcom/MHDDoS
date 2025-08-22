@@ -86,7 +86,7 @@ def check_shutdown_time():
                         "⚠️ *Aviso Importante:*\n\n"
                         "El bot se apagará en **5 minutos** debido a límites de tiempo.\n"
                         "Un administrador lo reactivará pronto. Por favor, sean pacientes.\n\n"
-                        "¡Gracias por su comprensión! 🙏",
+                        "¡Gracias por su comprensión! ✅️",
                         parse_mode="Markdown",
                     )
                 except Exception as e:
@@ -105,9 +105,9 @@ def notify_groups_bot_started():
         try:
             bot.send_message(
                 group_id,
-                "✅ *¡EL BOT ESTA ENCENDIDO!*\n\n"
-                "YA PUEDES SEGUIR UTILIZANDO TODOS LOS COMANDOSDISPONIBLES POR AHORA.\n\n"
-                "¡GRACIAS POR SU PACIENCIA! 🫶🏻",
+                "✅ *¡online!*\n\n"
+                "QUE ESPERAS.\n\n"
+                "GRACIAS POR SU PACIENCIA¡! 🫶🏻",
                 parse_mode="Markdown",
             )
         except Exception as e:
@@ -118,12 +118,12 @@ def handle_start(message):
     add_user(message.chat.id)  # Asegura que el usuario quede registrado
 
     markup = InlineKeyboardMarkup()
-    button = InlineKeyboardButton("💻 *CONTACTAME* 💻", url=f"tg://user?id={ADMIN_ID}")
+    button = InlineKeyboardButton("💻 CONTACTAME 💻", url=f"tg://user?id={ADMIN_ID}")
     markup.add(button)
 
     bot.send_message(
         message.chat.id,
-        "🎮 *¡BIENVENIDO AL BOT DEL ADMINISTRADOR DEL GRUPO!* 🚀\n\n"
+        "🧸 *¡BIENVENIDOS!* 🧸\n\n"
         "🔧 Usa `/help` para ver los comandos disponibles.",
         reply_markup=markup,
         parse_mode="Markdown",
@@ -179,17 +179,17 @@ def handle_ping(message):
         cooldowns[f"last_command_{telegram_id}"] = message.text  # Guardar el último comando
 
         markup = InlineKeyboardMarkup()
-        markup.add(InlineKeyboardButton("☢️ *PARAR ATAQUE ☢️", callback_data=f"stop_{telegram_id}"))
+        markup.add(InlineKeyboardButton("☢️ PARAR ATAQUE ☢️", callback_data=f"stop_{telegram_id}"))
 
         bot.reply_to(
             message,
             (
-                "*🔥 ¡ATAQUE INICIADO! 🔥*\n\n"
+                "*⚡️ ¡ATAQUE INICIADO! ⚡️*\n\n"
                 f"🌐 *SERVIDOR:* {ip_port}\n"
                 f"⚙️ *TIPO:* {attack_type}\n"
                 f"🧵 *HILOS:* {threads}\n"
                 f"⏳ *DURACIÓN:* {duration} segundos\n\n"
-                "*Este bot fue creado por el administrador del grupo* 🫶🏻"
+                "*creado por fackboy* 🫶🏻"
             ),
             reply_markup=markup,
             parse_mode="Markdown",
@@ -223,7 +223,7 @@ def handle_stop_attack(call):
             markup.add(InlineKeyboardButton("🔄 Realizar ataque nuevamente", callback_data=f"restart_attack_{telegram_id}"))
 
             bot.edit_message_text(
-                "*[☢️] ATAQUE PARADO [☢️]*\n\n"
+                "*[✅️] ATAQUE PARADO [✅️]*\n\n"
                 "¿Quieres realizar el ataque nuevamente? Tienes **20 segundos** para decidir.",
                 chat_id=call.message.chat.id,
                 message_id=call.message.id,
@@ -303,15 +303,15 @@ def handle_restart_attack(call):
             cooldowns[telegram_id] = time.time()  # Actualizar el cooldown
 
             markup = InlineKeyboardMarkup()
-            markup.add(InlineKeyboardButton("☢️ PARAR ATAQUE ☢️", callback_data=f"stop_{telegram_id}"))
+            markup.add(InlineKeyboardButton("✅️ PARAR ATAQUE ✅️", callback_data=f"stop_{telegram_id}"))
 
             bot.edit_message_text(
-                "*🔥 ¡ATAQUERE INICIADO! 🔥*\n\n"
+                "*⚡️ ¡ATAQUERE INICIADO! ⚡️*\n\n"
                 f"🌐 *SERVIDOR:* {ip_port}\n"
                 f"⚙️ *TIPO:* {attack_type}\n"
                 f"🧵 *HILOS:* {threads}\n"
                 f"⏳ *DURACIÓN:* {duration} segundos\n\n"
-                "*Este bot fue creado por el administrador del grupo* ✅️",
+                "*creado por @fackboy* ✅️",
                 chat_id=call.message.chat.id,
                 message_id=call.message.id,
                 reply_markup=markup,
@@ -414,7 +414,7 @@ def handle_help(message):
         message.chat.id,
         (
             "🔧 *¿Cómo usar este bot?* 🤖\n\n"
-            "Este bot está diseñado para ayudarte a ejecutar ataques de prueba con fines educativos en Free Fire.\n\n"
+            "Este bot está diseñado para ayudarte a ejecutar ataques de prueba con fines educativos en juegos.\n\n"
             "*Comandos disponibles:*\n"
             "1. `/start`: Inicia el bot y te da una breve introducción.\n"
             "2. `/ping <TIPO> <IP/HOST:PUERTO> <HILOS> <MS>`: Inicia un ataque de ping.\n"
